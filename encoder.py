@@ -69,3 +69,16 @@ class EncoderBlock(nn.Module):
         x = self.dynamic_conv(x, modulation)
         x = self.norm(x)
         return self.relu(x)
+
+class HybridEncoder(nn.Module):
+    def __init__(self, in_channels=1, base_channels=32):
+        super().__init__()
+        self.block1 = EncoderBlock(in_channels, base_channels)
+        self.block2 = EncoderBlock(base_channels, base_channels * 2)
+        self.block3 = EncoderBlock(base_channels * 2, base_channels * 4)
+
+    def forward(self, x):
+        x1 = self.block1(x)  # [B, C, D, H, W]
+        x2 = self.block2(x1)
+        x3 = self.block3(x2)
+        return x3  # can return x1,x2 if skip connections needed

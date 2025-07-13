@@ -6,16 +6,24 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch
 
+from monai.bundle import ConfigParser
+
 class LatentDiffusionWrapper(nn.Module):
     def __init__(self, config_path, device="cuda"):
         super().__init__()
-        self.config = ConfigParser(config_file=config_path)
+
+        # Step 1: create parser
+        self.config = ConfigParser()
+        
+        # Step 2: read the config file
+        self.config.read_config(config_path)
+
         self.device = device
 
-        # Load modules from config
         self.autoencoder = self.config.get_parsed_content("autoencoder").to(device)
         self.scheduler = self.config.get_parsed_content("scheduler").to(device)
         self.model = self.config.get_parsed_content("denoiser_model").to(device)
+
 
         self.inferer = DiffusionInferer(scheduler=self.scheduler)
 

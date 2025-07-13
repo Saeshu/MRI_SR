@@ -8,7 +8,7 @@ class WindowSelfAttention3D(nn.Module):
         self.dim = dim
         self.window_size = window_size
         self.num_heads = num_heads
-        self.head_dim = dim // num_heads
+        self.head_dim = dim // num_heads if dim % num_heads == 0 else 1
         self.scale = self.head_dim ** -0.5
 
         self.qkv = nn.Linear(dim, dim * 3)

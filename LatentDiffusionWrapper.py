@@ -2,6 +2,7 @@ from monai.bundle import ConfigParser
 from monai.networks.nets import AutoEncoder
 from monai.inferers import DiffusionInferer
 from monai.transforms import Resize
+import torch.nn as nn
 import torch.nn.functional as F
 import torch
 

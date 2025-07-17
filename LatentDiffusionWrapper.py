@@ -22,7 +22,7 @@ class LatentDiffusionWrapper(nn.Module):
 
         self.autoencoder = self.config.get_parsed_content("autoencoder").to(device)
         self.scheduler = self.config.get_parsed_content("scheduler").to(device)
-        self.model = self.config.get_parsed_content("denoiser_model").to(device)
+        self.model = self.config.get_parsed_content("diffusion").to(device)
 
 
         self.inferer = DiffusionInferer(scheduler=self.scheduler)

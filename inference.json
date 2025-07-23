@@ -4,7 +4,7 @@
         "$from datetime import datetime",
         "$from pathlib import Path"
     ],
-    "bundle_root": ".",
+    "bundle_root": "/content/brain_image_synthesis_latent_diffusion_model",
     "dataset_dir": "",
     "dataset": "",
     "evaluator": "",
